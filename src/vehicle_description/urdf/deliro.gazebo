@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<robot>
+
+    <gazebo reference="${FR_wheel}">
+      <mu1 value="0.7"/>
+      <mu2 value="0.7"/>
+      <kp  value="10000000.0"/>
+      <kd  value="1.0" />
+      <fdir1 value="0 1 0"/>
+    </gazebo>
+
+    <gazebo reference="${FL_wheel}">
+      <mu1 value="0.7"/>
+      <mu2 value="0.7"/>
+      <kp  value="10000000.0"/>
+      <kd  value="1.0" />
+      <fdir1 value="0 1 0"/>
+    </gazebo>
+
+    <gazebo reference="${BR_wheel}">
+      <mu1 value="0.7"/>
+      <mu2 value="0.7"/>
+      <kp  value="10000000.0"/>
+      <kd  value="1.0" />
+      <fdir1 value="0 1 0"/>
+    </gazebo>
+
+    <gazebo reference="${BL_wheel}">
+      <mu1 value="0.7"/>
+      <mu2 value="0.7"/>
+      <kp  value="10000000.0"/>
+      <kd  value="1.0" />
+      <fdir1 value="0 1 0"/>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/DeliRo</robotNamespace>
+            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+            <legacyModeNS>true</legacyModeNS>
+        </plugin>
+    </gazebo> 
+
+</robot>

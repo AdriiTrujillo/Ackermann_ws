@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/adrii/Escritorio/ROS/Ackermann_ws/devel -DCMAKE_INSTALL_PREFIX=/home/adrii/Escritorio/ROS/Ackermann_ws/install -G Unix Makefiles

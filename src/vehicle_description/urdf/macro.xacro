@@ -1,0 +1,251 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- FIX JOINT MACRO -->
+  <xacro:macro name="fix_joint" params="name axis_xyz origin_rpy origin_xyz parent child">
+    
+    <joint name="${name}" type="fixed">
+      <axis xyz="${axis_xyz}" />
+      <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+      <parent link="${parent}" />
+      <child link="${child}" />
+    </joint>
+
+  </xacro:macro>
+
+  <!-- CONTINUOUS JOINT MACRO -->
+  <xacro:macro name="cont_joint" params="name axis_xyz origin_rpy origin_xyz parent child limit_e limit_v">
+    
+    <joint name="${name}" type="continuous">
+      <axis xyz="${axis_xyz}" />
+      <limit effort="${limit_e}" velocity="${limit_v}" />
+      <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+      <parent link="${parent}" />
+      <child link="${child}" />
+      <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+
+    <transmission name="trans_${name}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${name}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor_${name}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+  </xacro:macro>
+  
+  <!-- REVOLUTE JOINT MACRO -->
+
+  <xacro:macro name="rev_joint" params="name axis_xyz origin_rpy origin_xyz parent child limit_e limit_l limit_u limit_v">
+    
+    <joint name="${name}" type="revolute">
+      <axis xyz="${axis_xyz}" />
+      <limit effort="${limit_e}" lower="${limit_l}" upper="${limit_u}" velocity="${limit_v}" />
+      <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+      <parent link="${parent}" />
+      <child link="${child}" />
+      <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+
+    <transmission name="trans_${name}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${name}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor_${name}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+  </xacro:macro>
+
+  <!-- DELIRO CHASIS LINK MACRO -->
+
+  <xacro:macro name="base_link" params="name origin_xyz origin_rpy">
+    
+    <link name="${name}">
+      <visual>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <mesh filename="package://deliro_description/meshes/Chasis/DeliRo_Chasis.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <box size="0.684 1 0.416" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="10" />
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
+      </inertial>
+    </link>
+    
+  </xacro:macro>
+
+  <!-- DELIRO HEAD LINK MACRO -->
+
+  <xacro:macro name="head" params="name origin_xyz origin_rpy">
+    
+    <link name="${name}">
+      <visual>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <mesh filename="package://deliro_description/meshes/Head/DeliRo_Head.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <box size="0.711 0.348 0.621" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="15" />
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
+      </inertial>
+    </link>
+    
+  </xacro:macro> 
+
+  <!-- DELIRO TRUCK LINK MACRO -->
+
+  <xacro:macro name="truck" params="name origin_xyz origin_rpy">
+    
+    <link name="${name}">
+      <visual>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <mesh filename="package://deliro_description/meshes/Truck/DeliRo_Truck.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <mesh filename="package://deliro_description/meshes/Truck/DeliRo_Truck.dae"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="10" />
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
+      </inertial>
+    </link>
+    
+  </xacro:macro> 
+
+  <!-- DELIRO LOCKER LINK MACRO -->
+
+  <xacro:macro name="locker" params="name origin_xyz origin_rpy">
+    
+    <link name="${name}">
+      <visual>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <mesh filename="package://deliro_description/meshes/Locker/DeliRo_Locker.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <box size="0.662 0.616 0.57" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="12" />
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
+      </inertial>
+    </link>
+    
+  </xacro:macro> 
+
+  <!-- DELIRO WHEEL LINK MACRO -->
+
+  <xacro:macro name="wheel" params="name origin_xyz origin_rpy">
+    
+    <link name="${name}">
+      <visual>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <mesh filename="package://deliro_description/meshes/Wheel/wheel.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <mesh filename="package://deliro_description/meshes/Wheel/wheel.dae"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="3" />
+        <origin rpy="0.7854 0 0" xyz="${origin_xyz}" />
+        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
+      </inertial>
+    </link>
+
+  </xacro:macro>
+
+  <!-- //////////////////////////////////////////// USEFUL MACROS //////////////////////////////////////////// -->
+
+  <!-- CILINDER SHAPE LINK MACRO -->
+
+  <xacro:macro name="m_link_cylinder" params="name origin_xyz origin_rpy radius length mass ixx ixy ixz iyy iyz izz">
+    
+    <link name="${name}">
+      <visual>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <cylinder radius="${radius}" length="${length}" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <cylinder radius="${radius}" length="${length}" />
+        </geometry>
+        </collision>
+      <inertial>
+        <mass value="${mass}" />
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}" />
+      </inertial>
+    </link>
+
+  </xacro:macro>
+ 
+  <!-- BOX SHAPE LINK MACRO -->
+
+  <xacro:macro name="m_link_box" params="name origin_xyz origin_rpy size mass ixx ixy ixz iyy iyz izz">
+    
+    <link name="${name}">
+      <visual>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <box size="${size}" />
+        </geometry>
+      </visual>
+    <collision>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <box size="${size}" />
+        </geometry>
+      </collision>
+    <inertial>
+        <mass value="${mass}" />
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}" />
+      </inertial>
+    </link>
+    
+  </xacro:macro>
+
+</robot>

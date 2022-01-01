@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="Robot_Base" value="deliro_base" />
+  <xacro:property name="FR_wheel" value="front_right_wheel" />
+  <xacro:property name="FL_wheel" value="front_left_wheel" />
+  <xacro:property name="BR_wheel" value="backward_right_wheel" />
+  <xacro:property name="BL_wheel" value="backward_left_wheel" />
+  <xacro:property name="Robot_head" value="deliro_head" />
+  <xacro:property name="Locker_box" value="deliro_locker" />
+  <xacro:property name="Truck" value="deliro_truck" />
+
+</robot>

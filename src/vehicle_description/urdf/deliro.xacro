@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+
+<robot name="DeliRo" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:arg name="use_truck" default="false"/>
+
+    <xacro:include filename="$(find deliro_description)/urdf/macro.xacro" />
+    <xacro:include filename="$(find deliro_description)/urdf/robot_parameters.xacro" />
+    <xacro:include filename="$(find deliro_description)/urdf/deliro.gazebo" />
+
+    <!-- //////////////////// GENERAL STRUCTURE //////////////////// -->
+
+    <!-- BASEFOOTPRINT (Dummy baselink) -->
+    <link name="base_footprint"/>
+
+    <xacro:fix_joint name="base_footprint__${Robot_Base}"
+        axis_xyz="0 0 1"
+        origin_rpy="0 0 0" origin_xyz="0 0 0"
+        parent="base_footprint" child="${Robot_Base}"/>
+
+    <!-- CHASIS --> 
+    <xacro:base_link name = "${Robot_Base}" origin_rpy="0 0 0" origin_xyz="0 0 0"/> 
+
+    <!-- HEAD -->
+    <xacro:fix_joint name="${Robot_Base}__${Robot_head}"
+        axis_xyz="0 0 1"
+        origin_rpy="0 0 0" origin_xyz="0 -0.3100 0.1850"
+        parent="${Robot_Base}" child="${Robot_head}"/>
+
+    <xacro:head name = "${Robot_head}" origin_rpy="0 0 0" origin_xyz="0 0 0.2637"/> 
+
+    <!-- CHOOSE BETWEEN LOCKERS OR TRUCK (Default = Locker) -->
+    <xacro:if value="$(arg use_truck)">
+        <xacro:fix_joint name="${Robot_Base}__${Truck}"
+            axis_xyz="0 0 1"
+            origin_rpy="0 0 0" origin_xyz="0 0.1733 0.1850"
+            parent="${Robot_Base}" child="${Truck}"/>
+
+        <xacro:truck name ="${Truck}" origin_rpy="0 0 0" origin_xyz="0 0 0.1970"/>
+        
+    </xacro:if>
+
+    <xacro:unless value="$(arg use_truck)">
+        <xacro:fix_joint name="${Robot_Base}__${Locker_box}"
+            axis_xyz="0 0 1"
+            origin_rpy="0 0 0" origin_xyz="0 0.1733 0.1850"
+            parent="${Robot_Base}" child="${Locker_box}"/>
+
+        <xacro:locker name ="${Locker_box}" origin_rpy="0 0 0" origin_xyz="0 0 0.2800"/>
+    </xacro:unless>  
+
+    <!-- ////////////////// GENERAL STRUCTURE END //////////////////// -->
+
+    <!-- //////////////////// WHEELS STRUCTURE 0.30241 //////////////////// -->
+
+    <!-- FRONT LEFT WHEEL-->
+    <xacro:rev_joint name="${FL_wheel}__Steer"
+        axis_xyz="0 0 1" 
+        origin_rpy="0 0 0" origin_xyz="0.30241 -0.2868 -0.1848"
+        parent="${Robot_Base}" child="${FL_wheel}_Bearing"
+        limit_e="1000" limit_l="-0.785" limit_u="0.785" limit_v="0.5" />
+
+    <!--<link name="${FL_wheel}_Bearing"/>-->
+    <xacro:m_link_box name="${FL_wheel}_Bearing"
+        origin_rpy="0 0 0" origin_xyz="0 0 0"
+        size="0.01 0.05 0.05" 
+        mass="0.25"
+        ixx="0.00010" ixy="0" ixz="0"
+        iyy="0.00005" iyz="0"
+        izz="0.00005"/>   
+
+    <xacro:cont_joint name="${FL_wheel}__Rear"
+        axis_xyz="1 0 0"
+        origin_rpy="0 0 0" origin_xyz="0.0 0 0"
+        parent="${FL_wheel}_Bearing" child="${FL_wheel}"
+        limit_e="1000" limit_v="0.5"/>
+
+    <xacro:wheel name = "${FL_wheel}" origin_rpy="0 0 0" origin_xyz="0 0 0"/>
+
+    <!-- FRONT RIGHT WHEEL-->
+    <xacro:rev_joint name="${FR_wheel}__Steer"
+        axis_xyz="0 0 1"
+        origin_rpy="0 0 0" origin_xyz="-0.30241 -0.2868 -0.1848"
+        parent="${Robot_Base}" child="${FR_wheel}_Bearing"
+        limit_e="1000" limit_l="-0.785" limit_u="0.785" limit_v="0.5" />
+
+    <!--<link name="${FR_wheel}_Bearing"/>-->    
+    <xacro:m_link_box name="${FR_wheel}_Bearing"
+        origin_rpy="0 0 0" origin_xyz="0 0 0"
+        size="0.01 0.05 0.05" 
+        mass="0.25"
+        ixx="0.00010" ixy="0" ixz="0"
+        iyy="0.00005" iyz="0"
+        izz="0.00005"/> 
+
+    <xacro:cont_joint name="${FR_wheel}__Rear"
+        axis_xyz="1 0 0"
+        origin_rpy="0 0 0" origin_xyz="0 0 0"
+        parent="${FR_wheel}_Bearing" child="${FR_wheel}"
+        limit_e="1000" limit_v="0.5"/>
+
+    <xacro:wheel name = "${FR_wheel}" origin_rpy="0 0 3.14159" origin_xyz="0 0 0"/>
+
+    <!-- BACK LEFT WHEEL-->
+    <xacro:cont_joint name="${BL_wheel}__Rear"
+        axis_xyz="1 0 0"
+        origin_rpy="0 0 0" origin_xyz="0.1975 0.2328 -0.1848"
+        parent="${Robot_Base}" child="${BL_wheel}"
+        limit_e="1000" limit_v="0.5"/>
+
+    <xacro:wheel name = "${BL_wheel}" origin_rpy="0 0 0" origin_xyz="0 0 0"/>
+
+    <!-- BACK RIGHT WHEEL-->
+    <xacro:cont_joint name="${BR_wheel}__Rear"
+        axis_xyz="1 0 0"
+        origin_rpy="0 0 0" origin_xyz="-0.1975 0.2328 -0.1848"
+        parent="${Robot_Base}" child="${BR_wheel}"
+        limit_e="1000" limit_v="0.5"/>
+
+    <xacro:wheel name = "${BR_wheel}" origin_rpy="0 0 3.14159" origin_xyz="0 0 0"/>
+
+    <!-- //////////////////// WHEELS STRUCTURE END //////////////////// -->
+
+</robot>
