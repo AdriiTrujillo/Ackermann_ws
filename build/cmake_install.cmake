@@ -131,6 +131,9 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/adrii/Escritorio/ROS/Ackermann_ws/build/gtest/cmake_install.cmake")
+  include("/home/adrii/Escritorio/ROS/Ackermann_ws/build/vehicle_control/cmake_install.cmake")
+  include("/home/adrii/Escritorio/ROS/Ackermann_ws/build/vehicle_description/cmake_install.cmake")
+  include("/home/adrii/Escritorio/ROS/Ackermann_ws/build/vehicle_gazebo/cmake_install.cmake")
 
 endif()
 

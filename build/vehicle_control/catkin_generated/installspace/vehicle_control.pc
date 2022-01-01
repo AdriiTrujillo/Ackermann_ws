@@ -1,0 +1,8 @@
+prefix=/home/adrii/Escritorio/ROS/Ackermann_ws/install
+
+Name: vehicle_control
+Description: Description of vehicle_control
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

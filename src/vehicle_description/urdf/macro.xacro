@@ -28,10 +28,10 @@
     <transmission name="trans_${name}">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${name}">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
       </joint>
       <actuator name="motor_${name}">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
@@ -61,136 +61,6 @@
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
-
-  </xacro:macro>
-
-  <!-- DELIRO CHASIS LINK MACRO -->
-
-  <xacro:macro name="base_link" params="name origin_xyz origin_rpy">
-    
-    <link name="${name}">
-      <visual>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <mesh filename="package://deliro_description/meshes/Chasis/DeliRo_Chasis.dae"/>
-        </geometry>
-      </visual>
-      <collision>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <box size="0.684 1 0.416" />
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="10" />
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
-      </inertial>
-    </link>
-    
-  </xacro:macro>
-
-  <!-- DELIRO HEAD LINK MACRO -->
-
-  <xacro:macro name="head" params="name origin_xyz origin_rpy">
-    
-    <link name="${name}">
-      <visual>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <mesh filename="package://deliro_description/meshes/Head/DeliRo_Head.dae"/>
-        </geometry>
-      </visual>
-      <collision>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <box size="0.711 0.348 0.621" />
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="15" />
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
-      </inertial>
-    </link>
-    
-  </xacro:macro> 
-
-  <!-- DELIRO TRUCK LINK MACRO -->
-
-  <xacro:macro name="truck" params="name origin_xyz origin_rpy">
-    
-    <link name="${name}">
-      <visual>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <mesh filename="package://deliro_description/meshes/Truck/DeliRo_Truck.dae"/>
-        </geometry>
-      </visual>
-      <collision>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <mesh filename="package://deliro_description/meshes/Truck/DeliRo_Truck.dae"/>
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="10" />
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
-      </inertial>
-    </link>
-    
-  </xacro:macro> 
-
-  <!-- DELIRO LOCKER LINK MACRO -->
-
-  <xacro:macro name="locker" params="name origin_xyz origin_rpy">
-    
-    <link name="${name}">
-      <visual>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <mesh filename="package://deliro_description/meshes/Locker/DeliRo_Locker.dae"/>
-        </geometry>
-      </visual>
-      <collision>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <box size="0.662 0.616 0.57" />
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="12" />
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
-      </inertial>
-    </link>
-    
-  </xacro:macro> 
-
-  <!-- DELIRO WHEEL LINK MACRO -->
-
-  <xacro:macro name="wheel" params="name origin_xyz origin_rpy">
-    
-    <link name="${name}">
-      <visual>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <mesh filename="package://deliro_description/meshes/Wheel/wheel.dae"/>
-        </geometry>
-      </visual>
-      <collision>
-        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
-        <geometry>
-          <mesh filename="package://deliro_description/meshes/Wheel/wheel.dae"/>
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="3" />
-        <origin rpy="0.7854 0 0" xyz="${origin_xyz}" />
-        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
-      </inertial>
-    </link>
 
   </xacro:macro>
 

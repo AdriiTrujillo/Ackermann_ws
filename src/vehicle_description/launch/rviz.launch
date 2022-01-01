@@ -1,12 +1,10 @@
 <launch>
 
-    <arg name="use_truck" default="false"/> <!-- set this variable to true to change the locker_box to a truck -->
-
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find deliro_description)/urdf/deliro.xacro' use_truck:=$(arg use_truck)"/>
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find vehicle_description)/urdf/simple_vehicle.xacro'"/>
 
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find deliro_description)/config/rviz_config.rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find vehicle_description)/config/rviz_config.rviz"/>
 
     <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
 
