@@ -18,7 +18,7 @@
 
     <xacro:m_link_box name="${Robot_Base}"
         origin_rpy="0 0 0" origin_xyz="0 0 0"
-        size="0.616 0.662 0.57" 
+        size="0.684 1 0.416" 
         mass="15"
         ixx="1.0" ixy="0" ixz="0"
         iyy="1.0" iyz="0"
@@ -26,7 +26,7 @@
 
     <!-- ////////////////// GENERAL STRUCTURE END //////////////////// -->
 
-    <!-- //////////////////// WHEELS STRUCTURE 0.30241 //////////////////// -->
+    <!-- //////////////////// WHEELS STRUCTURE //////////////////// -->
 
     <!-- FRONT LEFT WHEEL-->
     <xacro:rev_joint name="${FL_wheel}__Steer"
@@ -39,18 +39,18 @@
         origin_rpy="0 0 0" origin_xyz="0 0 0"
         size="0.01 0.05 0.05" 
         mass="0.25"
-        ixx="0.00010" ixy="0" ixz="0"
-        iyy="0.00005" iyz="0"
-        izz="0.00005"/>   
+        ixx="1.0" ixy="0" ixz="0"
+        iyy="1.0" iyz="0"
+        izz="1.0"/>  
 
     <xacro:cont_joint name="${FL_wheel}__Rear"
         axis_xyz="1 0 0"
-        origin_rpy="0 0 0" origin_xyz="0.0 0 0"
+        origin_rpy="0 0 0" origin_xyz="0 0 0"
         parent="${FL_wheel}_Bearing" child="${FL_wheel}"
         limit_e="1000" limit_v="0.5"/>
 
     <xacro:m_link_cylinder name="${FL_wheel}"
-        origin_rpy="1.5708 0 0" origin_xyz="0 0 0"
+        origin_rpy="0 1.5708 0" origin_xyz="0 0 0"
         radius="0.12" length="0.103"
         mass="5" 
         ixx="1.0" ixy="0" ixz="0"
@@ -68,9 +68,9 @@
         origin_rpy="0 0 0" origin_xyz="0 0 0"
         size="0.01 0.05 0.05" 
         mass="0.25"
-        ixx="0.00010" ixy="0" ixz="0"
-        iyy="0.00005" iyz="0"
-        izz="0.00005"/> 
+        ixx="1.0" ixy="0" ixz="0"
+        iyy="1.0" iyz="0"
+        izz="1.0"/>
 
     <xacro:cont_joint name="${FR_wheel}__Rear"
         axis_xyz="1 0 0"
@@ -79,7 +79,7 @@
         limit_e="1000" limit_v="0.5"/>
 
     <xacro:m_link_cylinder name="${FR_wheel}"
-        origin_rpy="1.5708 0 0" origin_xyz="0 0 0"
+        origin_rpy="0 1.5708 0" origin_xyz="0 0 0"
         radius="0.12" length="0.103"
         mass="5" 
         ixx="1.0" ixy="0" ixz="0"
@@ -94,7 +94,7 @@
         limit_e="1000" limit_v="0.5"/>
 
     <xacro:m_link_cylinder name="${BL_wheel}"
-        origin_rpy="1.5708 0 0" origin_xyz="0 0 0"
+        origin_rpy="0 1.5708 0" origin_xyz="0 0 0"
         radius="0.12" length="0.103"
         mass="5" 
         ixx="1.0" ixy="0" ixz="0"
@@ -110,7 +110,7 @@
         limit_e="1000" limit_v="0.5"/>
 
     <xacro:m_link_cylinder name="${BR_wheel}"
-        origin_rpy="1.5708 0 0" origin_xyz="0 0 0"
+        origin_rpy="0 1.5708 0" origin_xyz="0 0 0"
         radius="0.12" length="0.103"
         mass="5" 
         ixx="1.0" ixy="0" ixz="0"

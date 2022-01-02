@@ -5,29 +5,24 @@
     <arg name="testing" default="false"/>
 
     <!-- Load controllers -->
-    <rosparam command="load" file="$(find deliro_control)/config/simple_controller.yaml" />
+    <rosparam command="load" file="$(find vehicle_control)/config/simple_controller.yaml" />
 
     <!-- Controllers -->
-    <node name="controller_spawner" pkg="controller_manager" type="spawner"
-        respawn="false" output="screen"
-        args="FR_Wheel_steering_controller
-        FL_Wheel_steering_controller
-        FR_Wheel_rear_controller
-        FL_Wheel_rear_controller
-        BR_Wheel_rear_controller
-        BL_Wheel_rear_controller
-        --timeout 120">
-    </node>
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="joint_state_controller 
+                          FR_Wheel_rear_controller
+                          FL_Wheel_rear_controller
+                          BR_Wheel_rear_controller
+                          BL_Wheel_rear_controller
+                          FL_Wheel_steering_controller
+                          FR_Wheel_steering_controller
+                          --timeout 120"/>
 
     <!-- convert joint states to TF transforms for rviz, etc -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
-        <param name="robot_description" command="$(find xacro)/xacro '$(find deliro_description)/urdf/deliro.xacro'" />
-        <remap from="/joint_states" to="/DeliRo/joint_states" />
+        <param name="robot_description" command="$(find xacro)/xacro '$(find vehicle_description)/urdf/simple_vehicle.xacro'" />
+        <remap from="/joint_states" to="/SVehicle/joint_states" />
     </node>
-
-    <!-- Publish to the steering angle to make it 0.0 at start time-->
-    <node pkg="rostopic" type="rostopic" name="pub_00_R" args="pub -1 /DeliRo/FR_Wheel_steering_controller/command std_msgs/Float64 0.0" output="screen"/>
-    <node pkg="rostopic" type="rostopic" name="pub_00_L" args="pub -1 /DeliRo/FL_Wheel_steering_controller/command std_msgs/Float64 0.0" output="screen"/>
 
     <!-- rqt -->
     <group if="$(arg testing)">
